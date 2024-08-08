@@ -1,6 +1,7 @@
 fetch("https://apis.scrimba.com/unsplash/photos/random?orientation=landscape&query=nature")
     .then(res => res.json())
     .then(data => {
+        console.log(data.urls.regular)// put here sp i could get the url from the console
         document.body.style.backgroundImage = `url(${data.urls.regular})`
 		document.getElementById("author").textContent = `By: ${data.user.name}`
     })
@@ -11,10 +12,10 @@ fetch("https://apis.scrimba.com/unsplash/photos/random?orientation=landscape&que
 		document.getElementById("author").textContent = `By: Dodi Achmad`
     })
 
-fetch("https://api.coingecko.com/api/v3/coins/dogecoin")
+fetch("https://api.coingecko.com/api/v3/coins/dogecoin")// search up dogecoin api
     .then(res => {
-        if (!res.ok) {
-            throw Error("Something went wrong")
+        if (!res.ok) {// ! means not okay , like the response is not okay or status is not okay
+            throw Error("Something went wrong")// throw triggers .catch() method, throw exits the if
         }
         return res.json()
     })
@@ -39,7 +40,7 @@ function getCurrentTime() {
 setInterval(getCurrentTime, 1000)
 
 navigator.geolocation.getCurrentPosition(position => {
-    fetch(`https://apis.scrimba.com/openweathermap/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&units=imperial`)
+    fetch(`https://apis.scrimba.com/openweathermap/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&units=metric`)
         .then(res => {
             if (!res.ok) {
                 throw Error("Weather data not available")
@@ -50,9 +51,10 @@ navigator.geolocation.getCurrentPosition(position => {
             const iconUrl = `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`
             document.getElementById("weather").innerHTML = `
                 <img src=${iconUrl} />
-                <p class="weather-temp">${Math.round(data.main.temp)}º</p>
+                <p class="weather-temp">${Math.round(data.main.temp)}ºC</p>
                 <p class="weather-city">${data.name}</p>
             `
         })
         .catch(err => console.error(err))
 });
+ 
